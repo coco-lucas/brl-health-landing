@@ -22,3 +22,12 @@ export type Plan = {
   highlighted: boolean;
   ctaLabel: string;
 };
+
+export type ContactSubject = "duvida" | "sugestao" | "parceria" | "outro";
+
+export interface ContactFormData {
+  name: string;
+  email: string;
+  subject: ContactSubject;
+  message: string;
+}

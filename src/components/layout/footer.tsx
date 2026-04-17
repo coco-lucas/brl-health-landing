@@ -1,16 +1,50 @@
 import Link from "next/link";
 
-const links = [
-  { href: "#produtos", label: "Produtos" },
-  { href: "#planos", label: "Planos" },
-  { href: "#", label: "Sobre" },
-  { href: "#", label: "Contato" },
+type FooterLink = { href: string; label: string };
+
+const productLinks: FooterLink[] = [
+  { href: "/#produtos", label: "Produtos" },
+  { href: "/#como-funciona", label: "Como funciona" },
+  { href: "/#planos", label: "Planos" },
 ];
+
+const companyLinks: FooterLink[] = [
+  { href: "/sobre", label: "Sobre" },
+  { href: "/contato", label: "Contato" },
+];
+
+function FooterColumn({
+  title,
+  links,
+}: {
+  title: string;
+  links: FooterLink[];
+}) {
+  return (
+    <div>
+      <p className="text-xs font-medium tracking-wide text-brl-muted uppercase">
+        {title}
+      </p>
+      <ul className="mt-4 flex flex-col gap-3">
+        {links.map((link) => (
+          <li key={link.href}>
+            <Link
+              href={link.href}
+              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {link.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
 export function Footer() {
   return (
     <footer className="border-t border-white/5 bg-brl-dark py-12">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 md:flex-row md:items-center md:justify-between md:px-6">
+      <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 md:grid-cols-[2fr_1fr_1fr] md:px-6">
         <div>
           <Link
             href="/"
@@ -25,20 +59,8 @@ export function Footer() {
           </p>
         </div>
 
-        <nav
-          aria-label="Links de rodapé"
-          className="flex flex-wrap gap-x-6 gap-y-2"
-        >
-          {links.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="text-sm text-muted-foreground hover:text-foreground"
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
+        <FooterColumn title="Produto" links={productLinks} />
+        <FooterColumn title="Empresa" links={companyLinks} />
       </div>
       <div className="mx-auto mt-10 w-full max-w-6xl px-4 md:px-6">
         <p className="text-xs text-muted-foreground">

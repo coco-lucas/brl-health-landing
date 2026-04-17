@@ -15,9 +15,11 @@ import {
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { href: "#produtos", label: "Produtos" },
-  { href: "#como-funciona", label: "Como funciona" },
-  { href: "#planos", label: "Planos" },
+  { href: "/#produtos", label: "Produtos" },
+  { href: "/#como-funciona", label: "Como funciona" },
+  { href: "/#planos", label: "Planos" },
+  { href: "/sobre", label: "Sobre" },
+  { href: "/contato", label: "Contato" },
 ];
 
 function Logo({ className }: { className?: string }) {
@@ -60,17 +62,17 @@ export function Header() {
         <Logo />
 
         <nav
-          aria-label="Seções da página"
-          className="hidden items-center gap-8 md:flex"
+          aria-label="Navegação principal"
+          className="hidden items-center gap-6 md:flex lg:gap-8"
         >
           {navItems.map((item) => (
-            <a
+            <Link
               key={item.href}
               href={item.href}
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -109,18 +111,18 @@ export function Header() {
                 </SheetTitle>
               </SheetHeader>
               <nav
-                aria-label="Seções da página"
+                aria-label="Navegação principal"
                 className="flex flex-col gap-4"
               >
                 {navItems.map((item) => (
-                  <a
+                  <Link
                     key={item.href}
                     href={item.href}
                     onClick={() => setOpen(false)}
                     className="text-base font-medium text-foreground/90 hover:text-brl-purple"
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 ))}
               </nav>
               <div className="mt-8 flex flex-col gap-3">
