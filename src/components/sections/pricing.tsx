@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { CheckIcon } from "lucide-react";
 
+import { AnimatedSection } from "@/components/animations/animated-section";
 import { Button } from "@/components/ui/button";
 import { getPlans } from "@/services/plans.service";
 import type { Plan } from "@/types";
@@ -122,22 +123,37 @@ export function Pricing() {
         </p>
       </div>
 
-      <div className="mt-14 grid items-stretch gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {isLoading
-          ? Array.from({ length: 3 }).map((_, i) => <PlanSkeleton key={i} />)
-          : null}
+      {isLoading ? (
+        <div className="mt-14 grid items-stretch gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <PlanSkeleton key={i} />
+          ))}
+        </div>
+      ) : null}
 
-        {isError ? (
-          <p
-            role="alert"
-            className="col-span-full rounded-xl border border-destructive/40 bg-destructive/10 p-6 text-center text-sm text-destructive"
-          >
-            Não consegui carregar os planos agora. Tente novamente em instantes.
-          </p>
-        ) : null}
+      {isError ? (
+        <p
+          role="alert"
+          className="mt-14 rounded-xl border border-destructive/40 bg-destructive/10 p-6 text-center text-sm text-destructive"
+        >
+          Não consegui carregar os planos agora. Tente novamente em instantes.
+        </p>
+      ) : null}
 
-        {data?.map((plan) => <PlanCard key={plan.id} plan={plan} />)}
-      </div>
+      {data ? (
+        <AnimatedSection
+          className="mt-14 grid items-stretch gap-6 md:grid-cols-2 lg:grid-cols-3"
+          translateY={0}
+          scale={0.8}
+          duration={500}
+          delay={150}
+          ease="outBack"
+        >
+          {data.map((plan) => (
+            <PlanCard key={plan.id} plan={plan} />
+          ))}
+        </AnimatedSection>
+      ) : null}
     </section>
   );
 }

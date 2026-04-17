@@ -1,12 +1,15 @@
+import { AnimatedCounter } from "@/components/animations/animated-counter";
+
 type Metric = {
-  value: string;
+  value: number | string;
+  numeric: boolean;
   label: string;
 };
 
 const metrics: Metric[] = [
-  { value: "2", label: "Apps no ecossistema" },
-  { value: "1", label: "Objetivo: sua saúde" },
-  { value: "∞", label: "Possibilidades de evolução" },
+  { value: 2, numeric: true, label: "Apps no ecossistema" },
+  { value: 1, numeric: true, label: "Objetivo: sua saúde" },
+  { value: "∞", numeric: false, label: "Possibilidades de evolução" },
 ];
 
 export function MetricsSection() {
@@ -28,7 +31,11 @@ export function MetricsSection() {
               {metric.label}
             </dt>
             <dd className="order-1 font-display text-6xl font-extrabold tracking-tight text-brl-purple md:text-7xl">
-              {metric.value}
+              {metric.numeric ? (
+                <AnimatedCounter to={metric.value as number} />
+              ) : (
+                metric.value
+              )}
             </dd>
           </div>
         ))}

@@ -1,6 +1,8 @@
 import { ArrowRightIcon } from "lucide-react";
 import { Fragment } from "react";
 
+import { AnimatedSection } from "@/components/animations/animated-section";
+
 type Step = {
   title: string;
   description: string;
@@ -45,21 +47,30 @@ export function HowItWorks() {
           </h2>
         </div>
 
-        <ol className="mt-14 flex flex-col items-stretch gap-6 lg:flex-row lg:gap-2">
+        <AnimatedSection
+          as="ol"
+          className="mt-14 flex flex-col items-stretch gap-6 lg:flex-row lg:gap-2"
+          translateY={60}
+          duration={600}
+          delay={120}
+          ease="outBack"
+        >
           {steps.map((step, index) => (
             <Fragment key={step.title}>
               <li className="flex flex-1 flex-col gap-3 rounded-2xl border border-white/5 bg-brl-card p-6">
-                <span
-                  aria-hidden
-                  className="font-display text-5xl font-extrabold text-brl-purple/20 md:text-6xl"
-                >
-                  0{index + 1}
-                </span>
-                <h3 className="font-display text-xl font-bold">{step.title}</h3>
-                <p className="text-sm text-muted-foreground">
-                  {step.description}
-                </p>
-              </li>
+                  <span
+                    aria-hidden
+                    className="font-display text-5xl font-extrabold text-brl-purple/20 md:text-6xl"
+                  >
+                    0{index + 1}
+                  </span>
+                  <h3 className="font-display text-xl font-bold">
+                    {step.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    {step.description}
+                  </p>
+                </li>
               {index < steps.length - 1 ? (
                 <div
                   aria-hidden
@@ -71,7 +82,7 @@ export function HowItWorks() {
               ) : null}
             </Fragment>
           ))}
-        </ol>
+        </AnimatedSection>
       </div>
     </section>
   );
