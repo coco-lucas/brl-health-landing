@@ -1,0 +1,154 @@
+"use client";
+
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { MenuIcon } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
+
+const navItems = [
+  { href: "#produtos", label: "Produtos" },
+  { href: "#como-funciona", label: "Como funciona" },
+  { href: "#planos", label: "Planos" },
+];
+
+function Logo({ className }: { className?: string }) {
+  return (
+    <Link
+      href="/"
+      aria-label="BRL Health — página inicial"
+      className={cn(
+        "font-display text-xl font-extrabold tracking-tight",
+        className,
+      )}
+    >
+      <span className="text-brl-purple">BRL</span>
+      <span className="text-foreground"> Health</span>
+    </Link>
+  );
+}
+
+export function Header() {
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-40 transition-all duration-200",
+        scrolled
+          ? "border-b border-white/5 bg-background/70 backdrop-blur-xl"
+          : "border-b border-transparent bg-transparent",
+      )}
+    >
+      <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-4 md:px-6">
+        <Logo />
+
+        <nav
+          aria-label="Seções da página"
+          className="hidden items-center gap-8 md:flex"
+        >
+          {navItems.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
+
+        <div className="hidden items-center gap-2 md:flex">
+          <Button
+            variant="ghost"
+            size="lg"
+            nativeButton={false}
+            render={<Link href="/login">Entrar</Link>}
+          />
+          <Button
+            size="lg"
+            nativeButton={false}
+            className="bg-brl-purple text-white hover:bg-brl-purple/90"
+            render={<Link href="/cadastro">Começar grátis</Link>}
+          />
+        </div>
+
+        <div className="md:hidden">
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger
+              render={
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  aria-label="Abrir menu"
+                />
+              }
+            >
+              <MenuIcon />
+            </SheetTrigger>
+            <SheetContent side="right" className="gap-0 p-6">
+              <SheetHeader className="p-0 pb-6">
+                <SheetTitle>
+                  <Logo />
+                </SheetTitle>
+              </SheetHeader>
+              <nav
+                aria-label="Seções da página"
+                className="flex flex-col gap-4"
+              >
+                {navItems.map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className="text-base font-medium text-foreground/90 hover:text-brl-purple"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </nav>
+              <div className="mt-8 flex flex-col gap-3">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  nativeButton={false}
+                  render={
+                    <Link href="/login" onClick={() => setOpen(false)}>
+                      Entrar
+                    </Link>
+                  }
+                />
+                <Button
+                  size="lg"
+                  nativeButton={false}
+                  className="bg-brl-purple text-white hover:bg-brl-purple/90"
+                  render={
+                    <Link href="/cadastro" onClick={() => setOpen(false)}>
+                      Começar grátis
+                    </Link>
+                  }
+                />
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </div>
+    </header>
+  );
+}
