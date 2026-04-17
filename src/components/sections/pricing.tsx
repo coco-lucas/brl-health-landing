@@ -13,7 +13,7 @@ function PlanCard({ plan }: { plan: Plan }) {
   return (
     <article
       className={cn(
-        "relative flex flex-col gap-6 rounded-2xl border bg-brl-card p-8 transition-colors",
+        "relative flex h-full flex-col gap-6 rounded-2xl border bg-brl-card p-8 transition-colors",
         plan.highlighted
           ? "border-brl-purple/40 shadow-[0_0_0_1px_rgba(150,86,161,0.6)] lg:-translate-y-4 lg:scale-[1.02]"
           : "border-white/5",
@@ -82,7 +82,7 @@ function PlanSkeleton() {
   return (
     <div
       aria-hidden
-      className="flex h-120 animate-pulse flex-col gap-4 rounded-2xl border border-white/5 bg-brl-card p-8"
+      className="flex h-full min-h-120 animate-pulse flex-col gap-4 rounded-2xl border border-white/5 bg-brl-card p-8"
     >
       <div className="h-5 w-24 rounded bg-white/10" />
       <div className="h-10 w-32 rounded bg-white/10" />
@@ -122,7 +122,7 @@ export function Pricing() {
         </p>
       </div>
 
-      <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:items-start">
+      <div className="mt-14 grid items-stretch gap-6 md:grid-cols-2 lg:grid-cols-3">
         {isLoading
           ? Array.from({ length: 3 }).map((_, i) => <PlanSkeleton key={i} />)
           : null}

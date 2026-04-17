@@ -1,7 +1,9 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { ArrowLeftIcon } from "lucide-react";
 
 import { RegisterForm } from "@/components/forms/register-form";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -18,6 +20,18 @@ export default function RegisterPage() {
   return (
     <main className="flex min-h-dvh items-center justify-center bg-brl-dark px-4 py-12">
       <div className="w-full max-w-md">
+        <Button
+          variant="ghost"
+          nativeButton={false}
+          className="mb-4 pl-0 text-muted-foreground hover:bg-transparent hover:text-foreground"
+          render={
+            <Link href="/" aria-label="Voltar para a landing page">
+              <ArrowLeftIcon />
+              Voltar para a tela inicial
+            </Link>
+          }
+        />
+
         <Link
           href="/"
           className="mb-8 block text-center font-display text-2xl font-extrabold tracking-tight"
