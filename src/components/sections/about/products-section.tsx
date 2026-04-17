@@ -37,10 +37,7 @@ function AboutProductCard({
         styles.border,
       )}
     >
-      <Icon
-        aria-hidden
-        className={cn("size-10", styles.icon)}
-      />
+      <Icon aria-hidden className={cn("size-10", styles.icon)} />
       <h3 className="mt-6 font-display text-2xl font-extrabold tracking-tight text-foreground md:text-3xl">
         {title}
       </h3>
@@ -65,8 +62,9 @@ export function ProductsSection() {
           Dois apps. Uma conta. Um objetivo.
         </h2>
         <p className="mt-4 text-base text-muted-foreground md:text-lg">
-          A BRL Ltda. é a holding por trás de dois produtos que nasceram pra
-          trabalhar juntos.
+          A BRL Ltda. é a holding por trás de dois produtos
+          <br />
+          que nasceram pra trabalhar juntos.
         </p>
       </div>
 
